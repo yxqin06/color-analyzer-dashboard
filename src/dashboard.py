@@ -1,0 +1,213 @@
+import os
+from jinja2 import Template
+from src.utils import ensure_dir
+
+TEMPLATE = Template("""
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Color Analysis Report</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 30px;
+            background: #fafafa;
+            color: #333;
+            animation: fadeIn 0.6s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 {
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            margin-top: 0;
+            font-size: 22px;
+        }
+
+        .section {
+            background: white;
+            padding: 20px;
+            border-radius: 14px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+            animation: fadeIn 0.7s ease-out;
+        }
+
+        .preview {
+            max-width: 100%;
+            border-radius: 14px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .color-box {
+            width: 130px;
+            height: 130px;
+            border-radius: 12px;
+            display: inline-block;
+            margin-right: 15px;
+            border: 2px solid #eee;
+            transition: transform 0.25s;
+        }
+
+        .color-box:hover {
+            transform: scale(1.05);
+        }
+
+        .palette-wrapper {
+            display: inline-block;
+            text-align: center;
+            margin-right: 12px;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .palette-box {
+            width: 70px;
+            height: 70px;
+            border-radius: 10px;
+            display: inline-block;
+            border: 2px solid #ddd;
+            transition: transform 0.25s ease;
+        }
+
+        .palette-box:hover {
+            transform: scale(1.15);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 14px;
+            margin-right: 10px;
+        }
+
+        .warm { background: #ffb59b; color: #8a3200; }
+        .cool { background: #b3d7ff; color: #003c78; }
+        .light { background: #fff2a8; color: #8a7300; }
+        .dark  { background: #c6c6c6; color: #333; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        table td {
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .metric-label {
+            font-weight: bold;
+            width: 200px;
+        }
+
+        .navbar {
+            margin-bottom: 20px;
+        }
+
+        .navbar a {
+            margin-right: 20px;
+            font-size: 16px;
+            text-decoration: none;
+            color: #0077cc;
+            transition: opacity 0.2s;
+        }
+
+        .navbar a:hover {
+            opacity: 0.6;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="navbar">
+    <a href="/">🏠 Dashboard Index</a>
+    <a href="/upload">⬆️ Upload Another Image</a>
+</div>
+
+<h1>🎨 Color Analysis Report</h1>
+
+<!-- IMAGE PREVIEW -->
+<div class="section">
+    <h2>Image Preview</h2>
+    <img src="../input/{{ image_name }}" class="preview">
+</div>
+
+<div class="section">
+    <h2>Main Color</h2>
+    <div class="color-box"
+         style="background-color: rgb({{ main_color[0] }}, {{ main_color[1] }}, {{ main_color[2] }});">
+    </div>
+    <p><strong>RGB:</strong> {{ main_color }}</p>
+</div>
+
+<div class="section">
+    <h2>Dominant Palette</h2>
+    {% for c in dominant_colors %}
+    <div class="palette-wrapper">
+        <div class="palette-box" style="background-color: rgb({{ c[0] }}, {{ c[1] }}, {{ c[2] }});"></div>
+        <div style="font-size:12px; margin-top:4px; color:#555;">{{ c }}</div>
+    </div>
+    {% endfor %}
+</div>
+
+<div class="section">
+    <h2>Classification</h2>
+    <span class="badge {{ temperature }}">{{ temperature | capitalize }}</span>
+    <span class="badge {{ brightness }}">{{ brightness | capitalize }}</span>
+</div>
+
+<div class="section">
+    <h2>Metrics</h2>
+    <table>
+        <tr><td class="metric-label">Hue</td> <td>{{ hue | round(2) }}</td></tr>
+        <tr><td class="metric-label">Saturation</td> <td>{{ saturation | round(2) }}</td></tr>
+        <tr><td class="metric-label">Value</td> <td>{{ value | round(2) }}</td></tr>
+        <tr><td class="metric-label">Luminance</td> <td>{{ luminance | round(3) }}</td></tr>
+    </table>
+</div>
+
+</body>
+</html>
+""")
+
+
+
+
+def generate_report_html(metrics: dict, filename: str, out_dir: str = "assets/reports") -> str:
+    ensure_dir(out_dir)
+
+    html = TEMPLATE.render(
+    image_name=filename,
+    main_color=metrics["main_color"],
+    dominant_colors=metrics["dominant_colors"],
+    temperature=metrics["temperature"],
+    brightness=metrics["brightness"],
+    hue=metrics["hue"],
+    saturation=metrics["saturation"],
+    value=metrics["value"],
+    luminance=metrics["luminance"],
+)
+
+
+    safe_filename = filename.replace(" ", "_")
+    report_path = os.path.join(out_dir, f"report_{safe_filename}.html")
+
+    with open(report_path, "w") as f:
+        f.write(html)
+
+    return report_path

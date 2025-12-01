@@ -4,7 +4,6 @@ from PIL import Image
 
 from src.pipeline import load_image_bytes, compute_color_features
 from src.dashboard import generate_report_html, render_gallery
-from src.dashboard_index import generate_index_gallery
 from src.utils import ensure_dir, append_upload_log, get_recent_uploads
 
 app = Flask(__name__)
@@ -60,9 +59,6 @@ def analyze():
         "timestamp": time.time(),
         "metrics": metrics
     })
-
-    # Rebuild gallery index file
-    generate_index_gallery(ASSETS_REPORTS, ASSETS_IN)
 
     # Redirect to gallery
     return redirect("/dashboard", code=302)

@@ -1,6 +1,6 @@
 @app.route("/", methods=["GET"])
 def index_page():
-    """Show list of generated dashboards."""
+    # Show list of generated dashboards.
     files = sorted(
         [f for f in os.listdir(ASSETS_REPORTS) if f.endswith(".html")],
         reverse=True

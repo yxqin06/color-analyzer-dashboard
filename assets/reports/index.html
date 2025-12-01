@@ -1,0 +1,308 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Image Gallery Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #111;
+            color: white;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        .cont {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .el {
+            position: absolute;
+            top: 0;
+            width: 20%;
+            height: 100%;
+            transition: transform 0.5s ease, width 0.5s ease;
+            cursor: pointer;
+        }
+
+        .el__inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            border-right: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .el__bg {
+            background-size: cover;
+            background-position: center;
+            width: 100%;
+            height: 100%;
+            filter: brightness(0.7);
+            transition: 0.5s;
+        }
+
+        .el:hover .el__bg {
+            filter: brightness(1);
+        }
+
+        .el.active {
+            width: 100%;
+            z-index: 20;
+        }
+
+        .el.active .el__bg {
+            filter: brightness(0.4) blur(4px);
+        }
+
+        .el__content {
+            position: absolute;
+            inset: 0;
+            padding: 40px;
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+
+        .el.active .el__content {
+            opacity: 1;
+        }
+
+        .el__heading {
+            font-size: 26px;
+            margin-bottom: 20px;
+        }
+
+        .metric-block {
+            background: rgba(255,255,255,0.08);
+            padding: 15px 20px;
+            border-radius: 12px;
+            margin-bottom: 14px;
+        }
+
+        .palette-box {
+            width: 40px;
+            height: 40px;
+            display: inline-block;
+            margin-right: 8px;
+            border-radius: 8px;
+            border: 2px solid rgba(255,255,255,0.4);
+        }
+
+        .top-bar {
+            padding: 12px 24px;
+            background: rgba(0,0,0,0.6);
+            width: 100%;
+            position: fixed;
+            z-index: 100;
+            font-size: 18px;
+        }
+
+        a {
+            color: #6ab8ff;
+            text-decoration: none;
+        }
+
+    </style>
+
+</head>
+<body>
+
+<div class="top-bar">
+    📁 Latest Uploaded Images — <a href="/upload">Upload More</a>
+</div>
+
+<div class="cont">
+
+    
+    <div class="el" style="left: 0%;">
+        <div class="el__inner">
+            <div class="el__bg" style="background-image: url('/input/download__11_.jpg');"></div>
+
+            <div class="el__content">
+                <h2 class="el__heading">download__11_.jpg</h2>
+
+                <div class="metric-block">
+                    <strong>Main Color</strong><br>
+                    <div class="palette-box" style="background-color: rgb(0,0,0)"></div>
+                    (0,0,0)
+                </div>
+
+                <div class="metric-block">
+                    <strong>Dominant Palette</strong><br>
+                    
+                        <div class="palette-box" style="background-color: rgb(0,0,0)"></div>
+                    
+                </div>
+
+                <div class="metric-block">
+                    <strong>Temperature:</strong> <br>
+                    <strong>Brightness:</strong> 
+                </div>
+
+                <div class="metric-block">
+                    <strong>Open Full Report:</strong><br>
+                    <a href="/dashboard/report_download__11_.jpg.html">View Report</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    
+    <div class="el" style="left: 20%;">
+        <div class="el__inner">
+            <div class="el__bg" style="background-image: url('/input/nau_blossoms__1_.jpg');"></div>
+
+            <div class="el__content">
+                <h2 class="el__heading">nau_blossoms__1_.jpg</h2>
+
+                <div class="metric-block">
+                    <strong>Main Color</strong><br>
+                    <div class="palette-box" style="background-color: rgb(0,0,0)"></div>
+                    (0,0,0)
+                </div>
+
+                <div class="metric-block">
+                    <strong>Dominant Palette</strong><br>
+                    
+                        <div class="palette-box" style="background-color: rgb(0,0,0)"></div>
+                    
+                </div>
+
+                <div class="metric-block">
+                    <strong>Temperature:</strong> <br>
+                    <strong>Brightness:</strong> 
+                </div>
+
+                <div class="metric-block">
+                    <strong>Open Full Report:</strong><br>
+                    <a href="/dashboard/report_nau_blossoms__1_.jpg.html">View Report</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    
+    <div class="el" style="left: 40%;">
+        <div class="el__inner">
+            <div class="el__bg" style="background-image: url('/input/c5c3421cd91f4e2514b64e840132d9a7.jpg');"></div>
+
+            <div class="el__content">
+                <h2 class="el__heading">c5c3421cd91f4e2514b64e840132d9a7.jpg</h2>
+
+                <div class="metric-block">
+                    <strong>Main Color</strong><br>
+                    <div class="palette-box" style="background-color: rgb(0,0,0)"></div>
+                    (0,0,0)
+                </div>
+
+                <div class="metric-block">
+                    <strong>Dominant Palette</strong><br>
+                    
+                        <div class="palette-box" style="background-color: rgb(0,0,0)"></div>
+                    
+                </div>
+
+                <div class="metric-block">
+                    <strong>Temperature:</strong> <br>
+                    <strong>Brightness:</strong> 
+                </div>
+
+                <div class="metric-block">
+                    <strong>Open Full Report:</strong><br>
+                    <a href="/dashboard/report_c5c3421cd91f4e2514b64e840132d9a7.jpg.html">View Report</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    
+    <div class="el" style="left: 60%;">
+        <div class="el__inner">
+            <div class="el__bg" style="background-image: url('/input/53ace8cebe913d1b0af48d330c471dd5.jpg');"></div>
+
+            <div class="el__content">
+                <h2 class="el__heading">53ace8cebe913d1b0af48d330c471dd5.jpg</h2>
+
+                <div class="metric-block">
+                    <strong>Main Color</strong><br>
+                    <div class="palette-box" style="background-color: rgb(0,0,0)"></div>
+                    (0,0,0)
+                </div>
+
+                <div class="metric-block">
+                    <strong>Dominant Palette</strong><br>
+                    
+                        <div class="palette-box" style="background-color: rgb(0,0,0)"></div>
+                    
+                </div>
+
+                <div class="metric-block">
+                    <strong>Temperature:</strong> <br>
+                    <strong>Brightness:</strong> 
+                </div>
+
+                <div class="metric-block">
+                    <strong>Open Full Report:</strong><br>
+                    <a href="/dashboard/report_53ace8cebe913d1b0af48d330c471dd5.jpg.html">View Report</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    
+    <div class="el" style="left: 80%;">
+        <div class="el__inner">
+            <div class="el__bg" style="background-image: url('/input/download__10_.jpg');"></div>
+
+            <div class="el__content">
+                <h2 class="el__heading">download__10_.jpg</h2>
+
+                <div class="metric-block">
+                    <strong>Main Color</strong><br>
+                    <div class="palette-box" style="background-color: rgb(0,0,0)"></div>
+                    (0,0,0)
+                </div>
+
+                <div class="metric-block">
+                    <strong>Dominant Palette</strong><br>
+                    
+                        <div class="palette-box" style="background-color: rgb(0,0,0)"></div>
+                    
+                </div>
+
+                <div class="metric-block">
+                    <strong>Temperature:</strong> <br>
+                    <strong>Brightness:</strong> 
+                </div>
+
+                <div class="metric-block">
+                    <strong>Open Full Report:</strong><br>
+                    <a href="/dashboard/report_download__10_.jpg.html">View Report</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    
+
+</div>
+
+<script>
+const els = document.querySelectorAll(".el");
+
+els.forEach(el => {
+    el.addEventListener("click", () => {
+        els.forEach(e => e.classList.remove("active"));
+        el.classList.add("active");
+    });
+});
+</script>
+
+</body>
+</html>

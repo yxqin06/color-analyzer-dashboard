@@ -3,37 +3,28 @@ import numpy as np
 from PIL import Image
 from sklearn.cluster import KMeans
 
-# ----------------------------------------------------
 # Load image
-# ----------------------------------------------------
 def load_image_bytes(b: bytes) -> Image.Image:
-    """Load image bytes into a PIL Image."""
+    # Load image bytes into a PIL Image.
     return Image.open(io.BytesIO(b)).convert("RGB")
 
-
-# ----------------------------------------------------
-# Helper: classify warm/cool
-# ----------------------------------------------------
+# classify warm/cool
 def classify_temperature(hue: float) -> str:
     # Hue: 0–360 degrees
-    # Warm approx: reds, oranges, yellows → 0–60 or 300–360
-    # Cool approx: blues, greens → 60–300
+    # Warm: reds, oranges, yellows → 0–60 or 300–360
+    # Cool: blues, greens → 60–300
     if hue < 60 or hue > 300:
         return "warm"
     return "cool"
 
 
-# ----------------------------------------------------
-# Helper: classify light/dark
-# ----------------------------------------------------
+# classify light/dark
 def classify_brightness(value: float) -> str:
     # Value (HSV) ranges 0–1
     return "light" if value > 0.5 else "dark"
 
 
-# ----------------------------------------------------
 # Compute dominant colors, main color, and features
-# ----------------------------------------------------
 def compute_color_features(img: Image.Image) -> dict:
     """
     Extract:
@@ -46,9 +37,7 @@ def compute_color_features(img: Image.Image) -> dict:
     arr = np.array(img_small)
     pixels = arr.reshape(-1, 3)
 
-    # ------------------------------------------------
     # KMeans to extract 5 colors
-    # ------------------------------------------------
     kmeans = KMeans(n_clusters=5, n_init=10)
     labels = kmeans.fit_predict(pixels)
     centers = kmeans.cluster_centers_.astype(int)
@@ -60,9 +49,7 @@ def compute_color_features(img: Image.Image) -> dict:
     dominant_colors = [centers[i].tolist() for i in sorted_idx]
     main_color = dominant_colors[0]
 
-    # ------------------------------------------------
     # Convert main color to HSV + luminance
-    # ------------------------------------------------
     r, g, b = np.array(main_color) / 255.0
     mx = max(r, g, b)
     mn = min(r, g, b)
@@ -84,12 +71,10 @@ def compute_color_features(img: Image.Image) -> dict:
     # Value
     val = mx
 
-    # Luminance (perceptual)
+    # Luminance
     luminance = 0.2126 * r + 0.7152 * g + 0.0722 * b
 
-    # ------------------------------------------------
     # Classifications
-    # ------------------------------------------------
     temperature = classify_temperature(hue)
     brightness = classify_brightness(val)
 

@@ -8,7 +8,7 @@
 ## 2. System Overview 
 **Course Concepts(s)**: Data Pipeline, Flask API, Docker Containerization, Logging & Metrics
 
-**Architecture Diagram**: assets/architecture.png
+**Architecture Diagram**: ![Architecture Diagram](assets/architecture.png)
 
 **Data/Models/Services**: 
 
@@ -66,10 +66,19 @@ curl http://localhost:8080/health
 
 Included smoke tests that cover API health endpoint, dashboard renders, and upload log file creation.
 
+How to run tests:
+
 ```bash
 pytest -q
 
 ```
+
+How to reset dashboard:
+```bash
+echo "[]" > data/uploads.json
+
+```
+
 
 ## 6. What's Next?
 - PDF or image export of reports
@@ -80,4 +89,5 @@ pytest -q
 
 ## 7. Links (Required)
 GitHub Repo: https://github.com/yxqin06/color-analyzer-dashboard
+
 Cloud Deployment: soon

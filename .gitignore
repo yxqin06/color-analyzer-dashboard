@@ -1,0 +1,13 @@
+# Python
+venv/
+__pycache__/
+*.pyc
+
+# Upload + output directories
+assets/input/*
+assets/reports/*
+data/uploads.json
+
+# OS / editor
+.DS_Store
+*.swp

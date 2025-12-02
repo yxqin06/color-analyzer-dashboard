@@ -1,0 +1,34 @@
+## Attribution of Datasets, Models, and External Resources
+
+This project does not rely on any external datasets or pretrained models.
+
+### Images Used
+
+All images uploaded into the system come from the end user at runtime.
+No third-party image sets, benchmarks, or datasets were downloaded or embedded.
+
+### Models
+
+This project does not use any external machine learning models.
+Color extraction is performed locally using:
+
+scikit-learn KMeans (BSD license)
+
+NumPy (BSD license)
+
+Pillow (HPND license)
+
+These libraries are open-source and included under their respective permissive licenses.
+
+### Fonts
+
+Satoshi © Indian Type Foundry / Fontshare — Free License (Used only for UI display in generated HTML.)
+
+### Icons / UI Inspirations
+
+UI concept inspired by: Satellite Website Prototype (Nikolay Talanov)
+(No direct assets or code from the design are included, only visual inspiration.)
+
+### No Proprietary Content
+
+No copyrighted, proprietary datasets, APIs, or models are used.
